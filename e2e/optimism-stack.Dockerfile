@@ -54,12 +54,20 @@ WORKDIR /git/optimism/packages/contracts-bedrock
 RUN sed -e '/build_info/d' -i ./foundry.toml
 WORKDIR /git/optimism
 RUN go mod tidy
-WORKDIR /git/optimism/op-bindings
-RUN go mod tidy
-WORKDIR /git/optimism
-RUN make op-bindings op-node op-batcher op-proposer
-RUN make -C ./op-conductor op-conductor
 
+WORKDIR /git/optimism/op-node
+RUN just op-node
+
+WORKDIR /git/optimism/op-batcher
+RUN just op-batcher
+
+WORKDIR /git/optimism/op-proposer
+RUN just op-proposer
+
+WORKDIR /git/optimism/op-conductor
+RUN just op-conductor
+
+WORKDIR /git/optimism
 RUN pnpm build
 
 WORKDIR /git/optimism/packages/contracts-bedrock
