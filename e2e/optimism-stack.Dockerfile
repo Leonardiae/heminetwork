@@ -13,15 +13,14 @@ RUN git checkout f145b7de4198386c628891bdc39642642375c6bf
 
 RUN go run build/ci.go install -static ./cmd/geth
 
-FROM golang:1.24.1-bookworm@sha256:fa1a01d362a7b9df68b021d59a124d28cae6d99ebd1a876e3557c4dd092f1b1d AS build_2
+FROM golang:1.24.2-alpine3.21@sha256:7772cb5322baa875edd74705556d08f0eeca7b9c4b5367754ce3f2f00041ccee AS build_2
 
 # store the latest geth here, build with go 1.23
 COPY --from=build_1 /git/op-geth/build/bin/geth /bin/geth
 
-RUN apt-get update
+RUN apk add jq nodejs npm just curl bash git
 
-RUN apt-get install -y jq nodejs npm just
-
+ENV SHELL="/bin/bash"
 
 RUN curl -L https://foundry.paradigm.xyz | bash
 
