@@ -37,7 +37,7 @@ COPY --from=build_1 /git/op-geth /git/op-geth
 WORKDIR /git
 RUN git clone https://github.com/hemilabs/optimism
 WORKDIR /git/optimism
-RUN git checkout 94c9daa37edc9ad3cabbba21c24d4842f07ef5a9
+RUN git checkout ab5f806a7ac48921d5fe1d57b147bf7c302fa412
 
 # as of now, we have the pop points address hard-coded as the rewards address
 # for pop miners, this should change once we do TGE and mint HEMI
