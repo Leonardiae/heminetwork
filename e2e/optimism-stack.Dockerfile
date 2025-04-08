@@ -48,7 +48,6 @@ RUN sed -i 's/predeploys.PoPPointsAddr/predeploys.GovernanceTokenAddr/g' ./op-no
 
 RUN git submodule update --init --recursive
 RUN pnpm install
-RUN pnpm install:abigen
 WORKDIR /git/optimism/packages/contracts-bedrock
 RUN sed -e '/build_info/d' -i ./foundry.toml
 
