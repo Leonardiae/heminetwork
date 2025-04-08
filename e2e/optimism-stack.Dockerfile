@@ -18,6 +18,7 @@ FROM golang:1.24.2-bookworm AS build_2
 # store the latest geth here, build with go 1.23
 COPY --from=build_1 /git/op-geth/build/bin/geth /bin/geth
 
+RUN apt-get update
 RUN apt-get install -y jq nodejs npm
 
 RUN curl -L https://foundry.paradigm.xyz | bash
