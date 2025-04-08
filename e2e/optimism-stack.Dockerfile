@@ -55,6 +55,8 @@ FROM golang:1.24.2-alpine3.21@sha256:7772cb5322baa875edd74705556d08f0eeca7b9c4b5
 
 RUN apk add jq nodejs npm just curl bash git
 
+RUN npm install -g pnpm
+
 COPY --from=build_2 /git/optimism /git/optimism
 COPY --from=build_2 /bin/geth /bin/geth
 
