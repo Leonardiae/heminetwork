@@ -52,7 +52,7 @@ RUN sed -e '/build_info/d' -i ./foundry.toml
 WORKDIR /git/optimism
 RUN go mod tidy
 
-RUN curl https://sh.rustup.rs -sSf | sh -- -y
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 RUN . /root/.cargo/env
 
 WORKDIR /git
