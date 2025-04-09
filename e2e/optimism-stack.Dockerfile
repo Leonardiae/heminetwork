@@ -14,6 +14,8 @@ RUN git checkout f145b7de4198386c628891bdc39642642375c6bf
 RUN go run build/ci.go install -static ./cmd/geth
 
 FROM golang:1.24.2-bookworm AS build_2
+RUN useradd -ms /bin/bash tester
+USER tester
 
 # store the latest geth here, build with go 1.23
 COPY --from=build_1 /git/op-geth/build/bin/geth /bin/geth
@@ -57,8 +59,6 @@ RUN echo 'deb [signed-by=/usr/share/keyrings/makedeb-archive-keyring.gpg arch=al
 RUN apt update
 RUN apt install makedeb -y
 
-RUN useradd -ms /bin/bash tester
-USER tester
 
 WORKDIR /git
 RUN git clone https://mpr.makedeb.org/just
