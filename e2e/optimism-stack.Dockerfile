@@ -52,7 +52,12 @@ RUN sed -e '/build_info/d' -i ./foundry.toml
 WORKDIR /git/optimism
 RUN go mod tidy
 
-RUN bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
+RUN wget -qO - 'https://proget.makedeb.org/debian-feeds/makedeb.pub' | gpg --dearmor | tee /usr/share/keyrings/makedeb-archive-keyring.gpg 1> /dev/null
+RUN echo 'deb [signed-by=/usr/share/keyrings/makedeb-archive-keyring.gpg arch=all] https://proget.makedeb.org/ makedeb main' | tee /etc/apt/sources.list.d/makedeb.list
+RUN apt update
+RUN apt install makedeb -y
+
+USER tester
 
 WORKDIR /git
 RUN git clone https://mpr.makedeb.org/just
