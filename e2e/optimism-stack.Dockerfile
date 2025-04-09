@@ -53,7 +53,7 @@ WORKDIR /git/optimism
 RUN go mod tidy
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-RUN . /root/.cargo/env
+ENV PATH="${PATH}:/root/.cargo/bin"
 
 WORKDIR /git
 RUN git clone https://github.com/casey/just
