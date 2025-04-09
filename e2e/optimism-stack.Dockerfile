@@ -52,6 +52,7 @@ RUN sed -e '/build_info/d' -i ./foundry.toml
 WORKDIR /git/optimism
 RUN go mod tidy
 
+RUN bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"
 
 WORKDIR /git
 RUN git clone https://mpr.makedeb.org/just
