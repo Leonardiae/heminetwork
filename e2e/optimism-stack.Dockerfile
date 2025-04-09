@@ -52,6 +52,12 @@ RUN sed -e '/build_info/d' -i ./foundry.toml
 WORKDIR /git/optimism
 RUN go mod tidy
 
+
+WORKDIR /git
+RUN git clone https://mpr.makedeb.org/just
+WORKDIR /git/just
+RUN makedeb -si
+
 WORKDIR /git/optimism/op-node
 RUN just op-node
 
