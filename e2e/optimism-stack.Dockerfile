@@ -58,6 +58,7 @@ RUN . /root/.cargo/env
 WORKDIR /git
 RUN git clone https://github.com/casey/just
 WORKDIR /git/just
+RUN cargo install just
 
 WORKDIR /git/optimism/op-node
 RUN just op-node
