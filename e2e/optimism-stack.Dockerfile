@@ -57,6 +57,7 @@ RUN echo 'deb [signed-by=/usr/share/keyrings/makedeb-archive-keyring.gpg arch=al
 RUN apt update
 RUN apt install makedeb -y
 
+RUN RUN useradd -ms /bin/bash tester
 USER tester
 
 WORKDIR /git
