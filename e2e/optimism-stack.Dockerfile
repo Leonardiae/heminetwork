@@ -14,8 +14,6 @@ RUN git checkout f145b7de4198386c628891bdc39642642375c6bf
 RUN go run build/ci.go install -static ./cmd/geth
 
 FROM golang:1.24.2-bookworm AS build_2
-RUN useradd -ms /bin/bash tester
-USER tester
 
 # store the latest geth here, build with go 1.23
 COPY --from=build_1 /git/op-geth/build/bin/geth /bin/geth
@@ -54,16 +52,12 @@ RUN sed -e '/build_info/d' -i ./foundry.toml
 WORKDIR /git/optimism
 RUN go mod tidy
 
-RUN wget -qO - 'https://proget.makedeb.org/debian-feeds/makedeb.pub' | gpg --dearmor | tee /usr/share/keyrings/makedeb-archive-keyring.gpg 1> /dev/null
-RUN echo 'deb [signed-by=/usr/share/keyrings/makedeb-archive-keyring.gpg arch=all] https://proget.makedeb.org/ makedeb main' | tee /etc/apt/sources.list.d/makedeb.list
-RUN apt update
-RUN apt install makedeb -y
-
+RUN curl https://sh.rustup.rs -sSf | sh -- -y
+RUN . /root/.cargo/env
 
 WORKDIR /git
-RUN git clone https://mpr.makedeb.org/just
+RUN git clone https://github.com/casey/just
 WORKDIR /git/just
-RUN makedeb -si
 
 WORKDIR /git/optimism/op-node
 RUN just op-node
