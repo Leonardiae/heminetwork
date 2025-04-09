@@ -46,7 +46,6 @@ RUN git checkout ab5f806a7ac48921d5fe1d57b147bf7c302fa412
 RUN sed -i 's/predeploys.PoPPointsAddr/predeploys.GovernanceTokenAddr/g' ./op-node/rollup/derive/pop_payout.go
 
 RUN git submodule update --init --recursive
-RUN pnpm install:abigen
 RUN pnpm install
 WORKDIR /git/optimism/packages/contracts-bedrock
 RUN sed -e '/build_info/d' -i ./foundry.toml
